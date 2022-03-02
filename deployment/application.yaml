@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: residuals-engine
+spec:
+   replicas: 1
+   selector:
+      matchLabels:
+         app: residuals-engine
+   template:
+      metadata:
+        labels:
+           app: residuals-engine
+      spec:
+         containers:
+            - name: residuals-engine
+              image: moviepopcorn/residuals_engine:0.0.1
+              ports:
+                 - containerPort: 9092
+              env:
+                 - name: MONGO_URL
+                   value: mongodb://mongo-service:27017/mazda
+                 - name: SPRING_PROFILES_ACTIVE
+                   value: test
+              imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: residuals-engine
+spec:
+   type: LoadBalancer
+   selector:
+      app: residuals-engine
+   ports:
+      - port: 9092
+        targetPort: 9092
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: web-allow-external
+spec:
+  podSelector:
+    matchLabels:
+      app: residuals-engine
+  ingress:
+  - {}
