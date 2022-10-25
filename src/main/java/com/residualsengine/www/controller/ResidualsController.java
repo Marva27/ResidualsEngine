@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +20,6 @@ import com.residualsengine.www.service.ResidualsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
@@ -36,14 +36,13 @@ public class ResidualsController {
 	@RequestMapping(value = "/residuals/getResidual", consumes = "application/json", produces = "application/json", method = RequestMethod.POST)
 	public ResponseEntity<ResidualsResponse> getResidualValue(@RequestBody ResidualsRequest residualRequest)
 			throws JsonProcessingException {
-		return null;
+		return residualsService.getResidualValue(residualRequest);
 	}
 
 	@RequestMapping(value = "/residuals/storeResidual", consumes = "multipart/form-data", produces = "application/json", method = RequestMethod.POST)
 	@Operation(summary = "Store Residual Value", description = "To store residual value")
 	@ApiResponses(value = { @ApiResponse(), @ApiResponse() })
 	public ResponseEntity<Success> storeResidualValue(@RequestParam MultipartFile inputFile) throws IOException {
-		residualsService.storeResiduals(inputFile.getInputStream());
-		return null;
+		return residualsService.storeResiduals(inputFile.getInputStream());
 	}
 }

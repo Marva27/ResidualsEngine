@@ -11,14 +11,38 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "residualValue" })
+@JsonPropertyOrder({ "residualBase", "residualPercentage", "residualValue" })
 @Generated("jsonschema2pojo")
 public class ResidualsResponse {
 
+	@JsonProperty("residualBase")
+	private Double residualBase;
+	@JsonProperty("residualPercentage")
+	private Double residualPercentage;
 	@JsonProperty("residualValue")
 	private Double residualValue;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+	@JsonProperty("residualBase")
+	public Double getResidualBase() {
+		return residualBase;
+	}
+
+	@JsonProperty("residualBase")
+	public void setResidualBase(Double residualBase) {
+		this.residualBase = residualBase;
+	}
+
+	@JsonProperty("residualPercentage")
+	public Double getResidualPercentage() {
+		return residualPercentage;
+	}
+
+	@JsonProperty("residualPercentage")
+	public void setResidualPercentage(Double residualPercentage) {
+		this.residualPercentage = residualPercentage;
+	}
 
 	@JsonProperty("residualValue")
 	public Double getResidualValue() {

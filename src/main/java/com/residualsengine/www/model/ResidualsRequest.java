@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "modelYear", "modelCode", "msrp" })
+@JsonPropertyOrder({ "modelYear", "modelCode", "msrp", "term", "annualMiles"})
 @Generated("jsonschema2pojo")
 public class ResidualsRequest {
 
@@ -21,6 +21,10 @@ public class ResidualsRequest {
 	private String modelCode;
 	@JsonProperty("msrp")
 	private Double msrp;
+	@JsonProperty("term")
+	private Integer term;
+	@JsonProperty("annualMiles")
+	private Integer annualMiles;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -52,6 +56,26 @@ public class ResidualsRequest {
 	@JsonProperty("msrp")
 	public void setMsrp(Double msrp) {
 		this.msrp = msrp;
+	}
+	
+	@JsonProperty("term")
+	public Integer getTerm() {
+		return term;
+	}
+
+	@JsonProperty("term")
+	public void setTerm(Integer term) {
+		this.term = term;
+	}
+	
+	@JsonProperty("annualMiles")
+	public Integer getAnnualMiles() {
+		return annualMiles;
+	}
+
+	@JsonProperty("annualMiles")
+	public void setAnnualMiles(Integer annualMiles) {
+		this.annualMiles = annualMiles;
 	}
 
 	@JsonAnyGetter
