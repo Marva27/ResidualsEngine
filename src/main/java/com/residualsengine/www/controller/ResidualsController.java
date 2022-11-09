@@ -24,6 +24,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
+@RequestMapping("/residuals")
 public class ResidualsController {
 	
 	@Autowired
@@ -33,16 +34,22 @@ public class ResidualsController {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Residuals returned successfully", content = @Content(schema = @Schema(implementation = ResidualsResponse.class))),
 			@ApiResponse(responseCode = "404", description = "Residuals not found", content = @Content(schema = @Schema(implementation = Error.class))) })
-	@RequestMapping(value = "/residuals/getResidual", consumes = "application/json", produces = "application/json", method = RequestMethod.POST)
+	@RequestMapping(value = "/getResidual", consumes = "application/json", produces = "application/json", method = RequestMethod.POST)
 	public ResponseEntity<ResidualsResponse> getResidualValue(@RequestBody ResidualsRequest residualRequest)
 			throws JsonProcessingException {
 		return residualsService.getResidualValue(residualRequest);
 	}
 
-	@RequestMapping(value = "/residuals/storeResidual", consumes = "multipart/form-data", produces = "application/json", method = RequestMethod.POST)
+	@RequestMapping(value = "/storeResidual", consumes = "multipart/form-data", produces = "application/json", method = RequestMethod.POST)
 	@Operation(summary = "Store Residual Value", description = "To store residual value")
 	@ApiResponses(value = { @ApiResponse(), @ApiResponse() })
 	public ResponseEntity<Success> storeResidualValue(@RequestParam MultipartFile inputFile) throws IOException {
 		return residualsService.storeResiduals(inputFile.getInputStream());
+	}
+	
+	@RequestMapping(value = "/sayHello", method = RequestMethod.GET)
+	@Operation(summary = "Hello from Residuals", description = "To get Hello greetings from Residuals")
+	public String sayHello() {
+		return "Hello from Residuals!!!!";
 	}
 }
